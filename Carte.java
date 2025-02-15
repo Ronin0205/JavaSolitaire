@@ -2,18 +2,18 @@ public class Carte {
 
     //Attributs pour la classe Carte
 
-    private String valeur;
+    private int valeur;
     private String couleur;
 
     // Methodes
 
-    public Carte(String valeur, String couleur){
+    public Carte(int valeur, String couleur){
         this.valeur = valeur;
         this.couleur = couleur;
     }
 
 
-    public String getValeur(){
+    public int getValeur(){
         return this.valeur;
     }
 
@@ -24,5 +24,5 @@ public class Carte {
     public String toString(){
         return this.couleur + " : " + this.valeur;
     }
-
+ 
 }

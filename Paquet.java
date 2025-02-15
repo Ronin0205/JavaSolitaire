@@ -7,7 +7,7 @@ public class Paquet {
     // Attributs de la classe Paquet
     private ArrayList<Carte> cartes;
     private static final String[] couleurs = {"Pique", "Carreau","Trefle","Coeur"};
-    private static final String[] valeurs = {"As","2","3","4","5","6","7","8","9","10","Valet","Reine","Roi"};
+    private static final int[] valeurs = {1,2,3,4,5,6,7,8,9,10,11,12,13};
 
 
     // Methodes
@@ -19,8 +19,8 @@ public class Paquet {
 
     public void remplirPaquet(){
         for (String couleurs : couleurs){
-            for (String valeurs : valeurs){
-                cartes.add(new Carte(couleurs,valeurs));
+            for (int valeurs : valeurs){
+                cartes.add(new Carte(valeurs,couleurs));
             }
         }
     }
@@ -36,9 +36,13 @@ public class Paquet {
     }
 
     public Carte retirerCarte(){
-        Carte carte = this.cartes.get(0);
-        this.cartes.remove(0);
+        Carte carte = this.cartes.get(this.cartes.size() - 1);
+        this.cartes.remove(this.cartes.size() - 1);
         return carte;
+    }
+
+    public ArrayList<Carte> getCartes(){
+        return this.cartes;
     }
 
 }
