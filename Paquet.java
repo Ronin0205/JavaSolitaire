@@ -35,12 +35,10 @@ public class Paquet {
         }
     }
 
-    public Carte getCarte(){
-        return this.cartes.get(this.cartes.size());
-    }
-
-    public void enleverCarte(){
-        this.cartes.remove(this.cartes.size());
+    public Carte retirerCarte(){
+        Carte carte = this.cartes.get(0);
+        this.cartes.remove(0);
+        return carte;
     }
 
 }
