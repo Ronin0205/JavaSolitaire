@@ -42,7 +42,7 @@ public class Table {
 
     public void placerCarte(int indice, Carte carte){
         if (indice >= 0 && indice <= 7 ){
-            pileTable.get(indice).add(carte);
+            this.pileTable.get(indice).add(carte);
         }
         else{
             System.out.println("Indice invalide! ");
@@ -57,12 +57,16 @@ public class Table {
 
     public void remplirPileFaceCachee(Paquet paquet){
         for (int i = 0; i < 24; i++){
-            pileFaceCachee.add(paquet.retirerCarte());
+            this.pileFaceCachee.add(paquet.retirerCarte());
         }
     }
 
     public ArrayList<ArrayList<Carte>> getPileTable(){
         return this.pileTable;
+    }
+
+    public ArrayList<ArrayList<Carte>> getPileGroupe(){
+        return this.pileGroupe;
     }
 
     public ArrayList<Carte> getPileFaceCachee(){
@@ -94,7 +98,11 @@ public class Table {
     }
 
     public void deplacerCartePileGroupe(int indPileGroupe, int ligneInit, int colInit){
+        String couleurInit;
 
+        if (getCarteOnIndicePileGroupe(indPileGroupe) == null && getCarteOnIndicePileTable(ligneInit,colInit).getValeur() == 1){
+            pileGroupe.get(indPileGroupe).add(getCarteOnIndicePileTable(ligneInit,colInit));
+        }
     }
 
     public Carte getCarteOnIndicePileTable(int ligne, int col){
@@ -103,5 +111,10 @@ public class Table {
 
     public Carte getCarteOnIndicePileGroupe(int ligne){
         return this.pileGroupe.get(ligne).get(pileGroupe.size() - 1);
+    }
+
+    public void remplirTable(Paquet paquet){
+        remplirPileTableAvecCartes(paquet);
+        remplirPileFaceCachee(paquet);
     }
 }
