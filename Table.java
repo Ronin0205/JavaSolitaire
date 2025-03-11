@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Table {
@@ -50,6 +51,7 @@ public class Table {
     }
 
     public void afficherTable(){
+        System.out.println();
         for (int i = 0; i < pileTable.size(); i++){
             for (int j = 0; j < pileTable.get(i).size(); j++){
                 if (j == pileTable.get(i).size() - 1) {
@@ -60,6 +62,13 @@ public class Table {
                 }
             }
             System.out.println();
+        }
+        System.out.println("Pile Face Cachée : " + this.pileFaceCachee);
+        if (!this.pileFace.isEmpty()){
+            System.out.print("\tPile Face : " + this.pileFace.get(this.pileFace.size() - 1).toString());
+        }
+        else {
+            System.out.print("\tPile Face : ");
         }
     }
 
@@ -98,7 +107,7 @@ public class Table {
         }
 
         if ((getCarteOnIndicePileTable(ligneInit,colInit).getValeur() == getCarteOnIndicePileTable(ligne,col).getValeur()) && (couleurInit != couleur)){
-            System.out.println("Deplacement possible !");
+            pileTable.get(ligne).add(pileTable.get(ligneInit).get(colInit));
         }
         else {
             System.out.println("Deplacement impossible !");
@@ -113,6 +122,17 @@ public class Table {
         }
     }
 
+    public void placerCartePileFace(){
+        if (!this.pileFaceCachee.isEmpty()) {
+            this.pileFace.add(this.pileFaceCachee.get(this.pileFaceCachee.size()-1));
+            this.pileFaceCachee.remove(this.pileFaceCachee.get(this.pileFaceCachee.size()-1));
+        }
+        else {
+            this.pileFaceCachee = this.pileFace;
+            this.pileFace.clear();
+        }
+    }
+
     public Carte getCarteOnIndicePileTable(int ligne, int col){
         return this.pileTable.get(ligne).get(col);
     }
@@ -120,6 +140,7 @@ public class Table {
     public Carte getCarteOnIndicePileGroupe(int ligne){
         return this.pileGroupe.get(ligne).get(pileGroupe.size() - 1);
     }
+
 
     public void remplirTable(Paquet paquet){
         remplirPileTableAvecCartes(paquet);
