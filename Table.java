@@ -51,7 +51,15 @@ public class Table {
 
     public void afficherTable(){
         for (int i = 0; i < pileTable.size(); i++){
-            System.out.println(pileTable.get(i));
+            for (int j = 0; j < pileTable.get(i).size(); j++){
+                if (j == pileTable.get(i).size() - 1) {
+                    System.out.print(pileTable.get(i).get(j).toString() + " ");
+                }
+                else {
+                    System.out.print("*\t");
+                }
+            }
+            System.out.println();
         }
     }
 

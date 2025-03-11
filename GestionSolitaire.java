@@ -31,6 +31,7 @@ public class GestionSolitaire {
 
         switch (choix){
             case 1:
+                gestionPartie();
                 break;
             case 2:
                 break;
@@ -40,14 +41,17 @@ public class GestionSolitaire {
 
     }
 
-    public static void preparationPartie(){
+    public static Table preparationPartie(){
         Table table = new Table();
         Paquet paquet = new Paquet();
         table.remplirTable(paquet);
+
+        return table;
     }
 
     public static void gestionPartie(){
-        preparationPartie();
+        Table table = preparationPartie();
+        table.afficherTable();
     }
 
     public static boolean partieGagnee(Table table){

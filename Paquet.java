@@ -27,6 +27,9 @@ public class Paquet {
 
     public void melangerCartes(){
         Collections.shuffle(cartes);
+        Collections.shuffle(cartes);
+        Collections.shuffle(cartes);
+        Collections.shuffle(cartes);
     }
 
     public void afficherCartes(){
