@@ -31,6 +31,7 @@ public class GestionSolitaire {
         int colInit;
         int ligne;
         int col;
+        boolean partieGagnee = partieGagnee(table);
 
         Scanner sc = new Scanner(System.in);
 
@@ -47,10 +48,9 @@ public class GestionSolitaire {
                     colInit = sc.nextInt();
                     ligne = sc.nextInt();
                     col = sc.nextInt();
-
                     table.deplacerCarte(ligneInit,colInit,ligne,col,table.getPileTable());
-
                     table.afficherTable();
+                    partieGagnee = partieGagnee(table);
                     break;
                 case 2:
                     table.afficherTable();
@@ -64,7 +64,7 @@ public class GestionSolitaire {
                 default:
                     break;
             }
-        }while (choix != 4);
+        }while (choix != 4 || partieGagnee);
 
     }
 
@@ -98,9 +98,7 @@ public class GestionSolitaire {
         Paquet paquet = new Paquet();
         table.remplirTable(paquet);
 
-        while(!partieGagnee(table)){
-            menuAction(table);
-        }
+        menuAction(table);
 
     }
 
