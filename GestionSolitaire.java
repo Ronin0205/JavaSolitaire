@@ -21,19 +21,20 @@ public class GestionSolitaire {
         System.out.print("\n1. Placer une carte\n" +
                 "2. Placer carte pile cachée -> pile face\n"+
                 "3. Placer carte dans pile groupe\n" +
-                "4. Quitter la partie\n" +
+                "4. Placer carte pile face -> pile table\n" +
+                "5. Quitter\n"+
                 "Votre choix : ");
     }
 
     public static void menuAction(Table table){
         int choix = 0;
         int ligneInit;
-        int colInit;
         int ligne;
-        int col;
         boolean partieGagnee = partieGagnee(table);
 
         Scanner sc = new Scanner(System.in);
+
+        table.afficherTable();
 
         do{
             affichageMenuAction();
@@ -43,12 +44,12 @@ public class GestionSolitaire {
                 case 1:
                     table.afficherTable();
 
-                    System.out.print("\nEntrez la ligne puis la colonne de la carte initiale puis de carte finale : ");
-                    ligneInit = sc.nextInt();
-                    colInit = sc.nextInt();
-                    ligne = sc.nextInt();
-                    col = sc.nextInt();
-                    table.deplacerCarte(ligneInit,colInit,ligne,col,table.getPileTable());
+                    System.out.print("\nEntrez la ligne de la carte initiale puis de la carte finale : ");
+
+                    ligneInit = sc.nextInt()-1;
+                    ligne = sc.nextInt()-1;
+
+                    table.deplacerCarte(ligneInit,ligne,table.getPileTable());
                     table.afficherTable();
                     partieGagnee = partieGagnee(table);
                     break;
@@ -61,10 +62,12 @@ public class GestionSolitaire {
                     break;
                 case 3:
                     break;
+                case 4:
+                    break;
                 default:
                     break;
             }
-        }while (choix != 4 || partieGagnee);
+        }while (choix != 5 || partieGagnee);
 
     }
 

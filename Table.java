@@ -1,5 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Table {
 
@@ -11,6 +11,9 @@ public class Table {
 
 
     // Methodes
+
+
+    public static Scanner sc = new Scanner(System.in);
 
     public Table(){
         this.pileFaceCachee = new ArrayList<>(24);
@@ -34,15 +37,15 @@ public class Table {
             for (int j = 0; j < nombreCartes; j++){
                 Carte carte = paquet.retirerCarte();
                 if (carte != null){
-                    placerCarte(i,carte);
+                    placerCartePileTable(i,carte);
                 }
             }
             nombreCartes++;
         }
     }
 
-    public void placerCarte(int indice, Carte carte){
-        if (indice >= 0 && indice <= 7 ){
+    public void placerCartePileTable(int indice, Carte carte){
+        if (indice >= 0 && indice <= 6 ){
             this.pileTable.get(indice).add(carte);
         }
         else{
@@ -90,24 +93,55 @@ public class Table {
         return this.pileFaceCachee;
     }
 
-    public void deplacerCarte(int ligneInit,int colInit,int ligne, int col ,ArrayList<ArrayList<Carte>> pileTable){
+    public void deplacerCarte(int ligneInit,int ligne, ArrayList<ArrayList<Carte>> pileTable){
         String couleurInit, couleur;
 
-        if (getCarteOnIndicePileTable(ligneInit,colInit).getCouleur() == "Trefle" || getCarteOnIndicePileTable(ligneInit,colInit).getCouleur() == "Pique"){
+        if (getCarteOnIndicePileTable(ligneInit,pileTable.get(ligneInit).size()-1).getCouleur().equals("Trefle") || getCarteOnIndicePileTable(ligneInit,pileTable.get(ligneInit).size()-1).getCouleur().equals("Pique")){
             couleurInit = "noir";
         }
         else {
             couleurInit = "rouge";
         }
-        if (getCarteOnIndicePileTable(ligne,col).getCouleur() == "Trefle" || getCarteOnIndicePileTable(ligne,col).getCouleur() == "Pique"){
+        if (getCarteOnIndicePileTable(ligne,pileTable.get(ligne).size()-1).getCouleur().equals("Trefle") || getCarteOnIndicePileTable(ligne,pileTable.get(ligne).size()-1).getCouleur().equals("Pique")){
             couleur = "noir";
         }
         else {
             couleur = "rouge";
         }
 
-        if ((getCarteOnIndicePileTable(ligneInit,colInit).getValeur() == getCarteOnIndicePileTable(ligne,col).getValeur()) && (couleurInit != couleur)){
-            pileTable.get(ligne).add(pileTable.get(ligneInit).get(colInit));
+        if ((getCarteOnIndicePileTable(ligneInit,pileTable.get(ligneInit).size()-1).getValeur() == (getCarteOnIndicePileTable(ligne,pileTable.get(ligne).size()-1).getValeur())-1 && (!couleurInit.equals(couleur)))){
+            pileTable.get(ligne).add(pileTable.get(ligneInit).get(pileTable.get(ligneInit).size()-1));
+            pileTable.get(ligneInit).remove(pileTable.get(ligneInit).get(pileTable.get(ligneInit).size()-1));
+        }
+        else {
+            System.out.println("Deplacement impossible !");
+        }
+    }
+
+    public void deplacerCartePileFace(ArrayList<Carte> pileFace){
+        int ligne1;
+        String couleurInit,couleur;
+
+
+        System.out.print("Entrez la ligne ou vous voulez placer votre carte : ");
+        ligne1 = sc.nextInt();
+
+        if (this.pileFace.get(this.pileFace.size()-1).getCouleur().equals("Trefle") || this.pileFace.get(this.pileFace.size()-1).getCouleur().equals("Pique")){
+            couleurInit = "noir";
+        }
+        else {
+            couleurInit = "rouge";
+        }
+        if (getCarteOnIndicePileTable(ligne1,pileTable.get(ligne1).size()-1).getCouleur().equals("Trefle") || getCarteOnIndicePileTable(ligne1,pileTable.get(ligne1).size()-1).getCouleur().equals("Pique")){
+            couleur = "noir";
+        }
+        else {
+            couleur = "rouge";
+        }
+
+        if ((this.pileFace.get(this.pileFace.size()-1).getValeur() == getCarteOnIndicePileTable(ligne1,pileTable.get(ligne1).size()-1).getValeur()) && (!couleurInit.equals(couleur))){
+            pileTable.get(ligne1).add(pileFace.get(pileFace.size()-1));
+            pileFace.remove(pileFace.size()-1);
         }
         else {
             System.out.println("Deplacement impossible !");
